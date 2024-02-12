@@ -2,10 +2,10 @@
 
 use app\models\History;
 
-/* @var $model History */
-/* @var $oldValue string */
-/* @var $newValue string */
-/* @var $content string */
+/** @var $model History */
+/** @var $oldValue string */
+/** @var $newValue string */
+/** @var $content string */
 ?>
 
     <div class="bg-success ">

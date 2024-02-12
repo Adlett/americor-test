@@ -29,7 +29,7 @@ ini_set('memory_limit', '2048M');
         [
             'label' => Yii::t('app', 'User'),
             'value' => function (History $model) {
-                return isset($model->user) ? $model->user->username : Yii::t('app', 'System');
+                return $model->user->username ?? Yii::t('app', 'System');
             }
         ],
         [
@@ -53,5 +53,7 @@ ini_set('memory_limit', '2048M');
     ],
     'exportType' => $exportType,
     'batchSize' => 2000,
-    'filename' => $filename
+    'filename' => $filename,
+    'triggerDownload' => true,
+    'showColumnSelector' => false,
 ]);
