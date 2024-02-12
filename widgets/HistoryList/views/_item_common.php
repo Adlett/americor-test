@@ -1,42 +1,39 @@
 <?php
 
-use app\models\User;
 use yii\helpers\Html;
 
-/* @var $user User */
-/* @var $body string */
-/* @var $footer string */
-/* @var $footerDatetime string */
-/* @var $bodyDatetime string */
-/* @var $iconClass string */
+/** @var $model \app\models\History */
+
+$stateService = (new \app\widgets\HistoryList\helpers\BaseCommonState($model));
+$state = $stateService->getState();
 ?>
-<?php echo Html::tag('i', '', ['class' => "icon icon-circle icon-main white $iconClass"]); ?>
+<?= Html::tag('i', '', ['class' => "icon icon-circle icon-main white " . $state->getIconClass()]); ?>
 
     <div class="bg-success ">
-        <?php echo $body ?>
+        <?= $state->getBody() ?>
 
-        <?php if (isset($bodyDatetime)): ?>
+        <?php if ($state->getBodyDateTime()): ?>
             <span>
-       <?= \app\widgets\DateTime\DateTime::widget(['dateTime' => $bodyDatetime]) ?>
-    </span>
+                <?= \app\widgets\DateTime\DateTime::widget(['dateTime' => $state->getBodyDateTime()]) ?>
+            </span>
         <?php endif; ?>
     </div>
 
-<?php if (isset($user)): ?>
-    <div class="bg-info"><?= $user->username; ?></div>
+<?php if ($model->user): ?>
+    <div class="bg-info"><?= $model->user->username ?? '' ?></div>
 <?php endif; ?>
 
-<?php if (isset($content) && $content): ?>
+<?php if ($state->getIsHasContent() && $state->getContent()): ?>
     <div class="bg-info">
-        <?php echo $content ?>
+        <?= $state->getContent() ?>
     </div>
 <?php endif; ?>
 
-<?php if (isset($footer) || isset($footerDatetime)): ?>
+<?php if ($state->getFooter() || $state->getFooterDateTime()): ?>
     <div class="bg-warning">
-        <?php echo isset($footer) ? $footer : '' ?>
-        <?php if (isset($footerDatetime)): ?>
-            <span><?= \app\widgets\DateTime\DateTime::widget(['dateTime' => $footerDatetime]) ?></span>
+        <?= $state->getFooter() ?>
+        <?php if ($state->getFooterDateTime()): ?>
+            <span><?= \app\widgets\DateTime\DateTime::widget(['dateTime' => $state->getFooterDateTime()]) ?></span>
         <?php endif; ?>
     </div>
 <?php endif; ?>
